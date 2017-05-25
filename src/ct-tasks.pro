@@ -3,6 +3,7 @@ QT += qml quick widgets
 CONFIG += c++11
 
 SOURCES += main.cpp \
+    widgets/controlwidget.cpp \
     controls/cloneableitem.cpp
 
 RESOURCES += qml.qrc
@@ -16,4 +17,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    widgets/controlwidget.h \
     controls/cloneableitem.h
