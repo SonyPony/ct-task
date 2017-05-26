@@ -16,6 +16,9 @@ class CloneableItem : public QWidget
         CloneableItem(int id, QWidget* parent = 0);
         void paintEvent(QPaintEvent*) override;
 
+        /**
+         * @brief pixmap Return pixmap representation of item
+         */
         QPixmap pixmap();
 
         bool clonable() const;
