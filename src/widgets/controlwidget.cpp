@@ -14,6 +14,9 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     this->setAcceptDrops(true);
     this->resize(500, 500);
 
+    m_dropPlaylist = new ListDropArea(this);
+    m_dropPlaylist->resize(500, 150);
+    m_dropPlaylist->move(0, 350);
     // TODO make better
     CloneableItem* item = new CloneableItem(1, this);
     item->resize(100, 100);
@@ -78,7 +81,18 @@ void ControlWidget::dropEvent(QDropEvent* event)
         newItem->resize(100, 100);
 
         newItem->setAttribute(Qt::WA_DeleteOnClose);
-        newItem->show();
+
+        if(m_dropPlaylist->isInDropArea(newItem)) {
+            if(m_dropPlaylist->handleDroppedItem(newItem))
+                newItem->show();
+            else
+                newItem->close();
+        }
+
+        else {
+            m_dropPlaylist->unregisterItem(newItem);
+            newItem->deleteLater();
+        }
 
         if(event->source() == this) {
             event->setDropAction(Qt::CopyAction);
@@ -96,17 +110,21 @@ void ControlWidget::dropEvent(QDropEvent* event)
 
 void ControlWidget::mousePressEvent(QMouseEvent* event)
 {
-    CloneableItem* child = static_cast<CloneableItem*>(this->childAt(event->pos()));
+    CloneableItem* child = dynamic_cast<CloneableItem*>(this->childAt(event->pos()));
     if(!child)
         return;
 
+    const bool reorderAction = m_dropPlaylist->geometry().contains(event->pos());
     QByteArray itemData;
     QPoint hotSpot = event->pos() - child->pos();
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << hotSpot;
+    dataStream << hotSpot << child->id();
 
     QMimeData* mimeData = new QMimeData;
     mimeData->setData(ControlWidget::graphTypeMimeType(), itemData);
+
+    if(reorderAction)
+        m_dropPlaylist->unregisterItem(child);
 
     QDrag* drag = new QDrag(this);
     drag->setHotSpot(hotSpot);
@@ -114,8 +132,6 @@ void ControlWidget::mousePressEvent(QMouseEvent* event)
     drag->setPixmap(child->pixmap());
 
     if(!child->clonable())
-        child->hide();
-    drag->exec(Qt::MoveAction | Qt::CopyAction);
-    if(!child->clonable())
         child->close();
+    drag->exec(Qt::MoveAction | Qt::CopyAction);
 }

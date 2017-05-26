@@ -4,7 +4,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     widgets/controlwidget.cpp \
-    controls/cloneableitem.cpp
+    controls/cloneableitem.cpp \
+    containers/listdroparea.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,4 +19,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     widgets/controlwidget.h \
-    controls/cloneableitem.h
+    controls/cloneableitem.h \
+    containers/listdroparea.h
