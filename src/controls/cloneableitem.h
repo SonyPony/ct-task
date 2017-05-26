@@ -10,13 +10,16 @@ class CloneableItem : public QWidget
     private:
         bool m_clonable;
         QImage m_imageRepresentation;
+        int m_id;
 
     public:
-        CloneableItem(QWidget* parent = 0);
-        void paintEvent(QPaintEvent*);
+        CloneableItem(int id, QWidget* parent = 0);
+        void paintEvent(QPaintEvent*) override;
 
         QPixmap pixmap();
+
         bool clonable() const;
+        int id() const;
 
     public Q_SLOTS:
         void setClonable(bool value);

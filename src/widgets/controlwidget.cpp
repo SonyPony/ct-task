@@ -15,7 +15,7 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     this->resize(500, 500);
 
     // TODO make better
-    CloneableItem* item = new CloneableItem(this);
+    CloneableItem* item = new CloneableItem(1, this);
     item->resize(100, 100);
     item->show();
 }
@@ -65,11 +65,12 @@ void ControlWidget::dropEvent(QDropEvent* event)
     QByteArray itemData = mimeData->data(ControlWidget::graphTypeMimeType());
     QDataStream dataStream(&itemData, QIODevice::ReadOnly);
     QPoint offset;
+    int id;
 
-    dataStream >> offset;
+    dataStream >> offset >> id;
 
     if(mimeData->hasFormat(ControlWidget::graphTypeMimeType())) {
-        CloneableItem* newItem = new CloneableItem(this);
+        CloneableItem* newItem = new CloneableItem(id, this);
 
         newItem->move(event->pos() - offset);
         newItem->setClonable(false);
