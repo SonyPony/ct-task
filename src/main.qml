@@ -7,5 +7,9 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("Graphs control")
+    FontLoader {
+        id: robotoFont
+        source: "qrc:/assets/fonts/Roboto-Light.ttf"
+    }
 
 }
