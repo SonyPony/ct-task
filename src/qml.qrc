@@ -3,6 +3,7 @@
         <file>main.qml</file>
         <file>qml/visualization/SingleValueView.qml</file>
         <file>assets/fonts/Roboto-Light.ttf</file>
+        <file>assets/logos/CSSD.svg</file>
         <file>qml/controls/TextWithBackground.qml</file>
     </qresource>
 </RCC>
