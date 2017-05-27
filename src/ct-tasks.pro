@@ -1,11 +1,12 @@
-QT += qml quick widgets
+QT += qml quick widgets sql
 
 CONFIG += c++11
 
 SOURCES += main.cpp \
     widgets/controlwidget.cpp \
     controls/cloneableitem.cpp \
-    containers/listdroparea.cpp
+    containers/listdroparea.cpp \
+    loaders/electionsdataloader.cpp
 
 RESOURCES += qml.qrc
 
@@ -20,4 +21,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     widgets/controlwidget.h \
     controls/cloneableitem.h \
-    containers/listdroparea.h
+    containers/listdroparea.h \
+    loaders/electionsdataloader.h
