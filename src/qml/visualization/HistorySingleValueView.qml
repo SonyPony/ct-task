@@ -49,7 +49,7 @@ Item {
         Controls.TextWithBackground {
             id: valueText
 
-            text: Number(component.valueReal.toFixed(2)) + component.valueUnit
+            text: Number(component.valueReal.toFixed(1)) + component.valueUnit
             font.family: component.font.family
             font.pixelSize: parent.height * 0.8
 
@@ -73,7 +73,7 @@ Item {
         Controls.TextWithBackground {
             id: historyText
 
-            text: Number(component.historyReal.toFixed(2)) + component.historyUnit
+            text: Number(component.historyReal.toFixed(1)) + component.historyUnit
             font: valueText.font
 
             anchors.verticalCenter: parent.verticalCenter
@@ -90,25 +90,25 @@ Item {
 
         onPaint: {
             var labelWidth = component.labelWidth
-            var barHeight = component.barHeight;
+            var barHeight = component.barHeight
             var width = component.width
             var height = component.height
 
-            var ctx = background.getContext('2d');
-            ctx.fillStyle = historyText.backgroundColor;
-            ctx.fillRect(0, height - barHeight, labelWidth + historyContainer.width, barHeight);
-            ctx.fillStyle = valueText.backgroundColor;
-            ctx.fillRect(0, height - barHeight * 2 - component.barOffset, labelWidth + valueContainer.width, barHeight);
+            var ctx = background.getContext('2d')
+            ctx.fillStyle = historyText.backgroundColor
+            ctx.fillRect(0, height - barHeight, labelWidth + historyContainer.width, barHeight)
+            ctx.fillStyle = valueText.backgroundColor
+            ctx.fillRect(0, height - barHeight * 2 - component.barOffset, labelWidth + valueContainer.width, barHeight)
 
-            ctx.fillStyle = component.labelBackgroundColor;
-            ctx.beginPath();
+            ctx.fillStyle = component.labelBackgroundColor
+            ctx.beginPath()
             ctx.moveTo(0, 0)
-            ctx.lineTo(labelWidth - height / 2.5, 0);
-            ctx.lineTo(labelWidth, height);
-            ctx.lineTo(0, height);
-            ctx.lineTo(0, 0);
-            ctx.fill();
-            ctx.closePath();
+            ctx.lineTo(labelWidth - height / 2.5, 0)
+            ctx.lineTo(labelWidth, height)
+            ctx.lineTo(0, height)
+            ctx.lineTo(0, 0)
+            ctx.fill()
+            ctx.closePath()
         }
     }
 }
