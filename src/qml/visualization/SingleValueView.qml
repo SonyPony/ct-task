@@ -1,18 +1,19 @@
 import QtQuick 2.0
+import "../controls" as Controls
 
 Item {
     id: component
 
-    property color labelBackgroundColor
-    property color valueBackgroundColor
-    property alias label: label
-    property alias value: value
+    property alias label: labelText
+    property alias value: valueText
+    property real valueReal
+    property string unit: ""
     property font font
 
-    width: value.x + value.width + label.anchors.leftMargin
+    width: valueText.x + valueText.width + labelText.anchors.leftMargin
 
-    Text {
-        id: label
+    Controls.TextWithBackground {
+        id: labelText
 
         z: 1
 
@@ -24,15 +25,16 @@ Item {
         anchors.leftMargin: font.pixelSize / 2.
     }
 
-    Text {
-        id: value
+    Controls.TextWithBackground {
+        id: valueText
 
         z: 1
+        text: Number(component.valueReal.toFixed(1)) + component.unit
 
-        font: label.font
+        font: labelText.font
 
-        anchors.top: label.top
-        anchors.left: label.right
+        anchors.top: labelText.top
+        anchors.left: labelText.right
         anchors.leftMargin: font.pixelSize
     }
 
@@ -47,15 +49,15 @@ Item {
             var ctx = getContext('2d');
 
             // draw value background
-            ctx.fillStyle = component.valueBackgroundColor;
+            ctx.fillStyle = component.value.backgroundColor;
             ctx.fillRect(0, 0, background.width, background.height);
 
             // draw label background
-            ctx.fillStyle = component.labelBackgroundColor;
+            ctx.fillStyle = component.label.backgroundColor;
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(label.x + label.width, 0);
-            ctx.lineTo(label.x + label.width + value.anchors.leftMargin, background.height);
+            ctx.lineTo(labelText.x + labelText.width, 0);
+            ctx.lineTo(labelText.x + labelText.width + valueText.anchors.leftMargin, background.height);
             ctx.lineTo(0, background.height);
             ctx.lineTo(0, 0)
             ctx.fill();
