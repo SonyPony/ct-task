@@ -57,7 +57,7 @@ int ListDropArea::calculateSection(QPoint itemPos) const
     // insert interval from 0 to first item
     insertIntervals.append(qMakePair(0, m_items.at(0).second->x() + itemCenter));
 
-    for(int i = 0; i < m_items.length() - 2; i++) {
+    for(int i = 0; i < m_items.length() - 1; i++) {
         insertIntervals.append(qMakePair(
                                    m_items.at(i).second->x() + itemCenter,
                                    m_items.at(i + 1).second->x() + itemCenter
