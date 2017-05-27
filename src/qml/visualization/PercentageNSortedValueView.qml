@@ -7,6 +7,7 @@ Rectangle {
     property real valueLimit: 0
     readonly property real offset: 10
     readonly property real barHeight: (component.height - (valuesCount - 1) * offset) / valuesCount
+    property color textColor
     property font font
 
     color: "red"
@@ -90,7 +91,7 @@ Rectangle {
                     id: label
 
                     text: internal.data[index]["label"]
-
+                    color: component.textColor
                     font: component.font
 
                     anchors.verticalCenter: parent.verticalCenter
@@ -100,6 +101,7 @@ Rectangle {
 
                 Text {
                     text: Number(internal.data[index]["value"].toFixed(2)) + "%"
+                    color: component.textColor
                     font: component.font
 
                     anchors.verticalCenter: parent.verticalCenter
