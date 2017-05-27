@@ -31,7 +31,7 @@ QString ControlWidget::graphTypeMimeType()
 void ControlWidget::dragEnterEvent(QDragEnterEvent* event)
 {
     if(event->mimeData()->hasFormat(ControlWidget::graphTypeMimeType())) {
-        if(this->children().contains(event->source())) {
+        if(event->source() == this) {
             event->setDropAction(Qt::CopyAction);
             event->accept();
         }
@@ -48,7 +48,7 @@ void ControlWidget::dragEnterEvent(QDragEnterEvent* event)
 void ControlWidget::dragMoveEvent(QDragMoveEvent* event)
 {
     if(event->mimeData()->hasFormat(ControlWidget::graphTypeMimeType())) {
-        if(this->children().contains(event->source())) {
+        if(event->source() == this) {
             event->setDropAction(Qt::CopyAction);
             event->accept();
         }
