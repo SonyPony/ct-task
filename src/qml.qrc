@@ -6,5 +6,6 @@
         <file>qml/visualization/HistorySingleValueView.qml</file>
         <file>assets/logos/CSSD.svg</file>
         <file>qml/controls/TextWithBackground.qml</file>
+        <file>qml/visualization/PercentageNSortedValueView.qml</file>
     </qresource>
 </RCC>
