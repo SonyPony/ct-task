@@ -52,7 +52,7 @@ class ListDropArea : public QWidget
         /**
          * @brief realignItems Reposition items according to their order in item list.
          */
-        void realignItems();
+        void realignItems(int index = -1);
 
         /**
          * @brief registerItem Register item in drop area.
@@ -61,6 +61,8 @@ class ListDropArea : public QWidget
          * not been registered before, else return false.
          */
         bool registerItem(CloneableItem* item);
+
+        void setIdList(QList<int> idList);
 
     public Q_SLOTS:
         /**
@@ -76,7 +78,7 @@ class ListDropArea : public QWidget
          * not been registered before, else return false.
          */
         bool handleDroppedItem(CloneableItem* item);
-        void setIdList(QList<int> idList);
+        void handleDraggingItem(int id, QPoint itemPos);
 
     Q_SIGNALS:
         void idListChanged(QList<int> idList);

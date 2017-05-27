@@ -51,8 +51,7 @@ int ListDropArea::calculateSection(QPoint itemPos) const
 
     QList<Interval> insertIntervals;
     int itemCenter = m_itemsSize.width() / 2.;
-    const int itemX = item->x();
-    const int itemWidth = item->width();
+    const int itemX = itemPos.x();
 
     // insert interval from 0 to first item
     insertIntervals.append(qMakePair(0, m_items.at(0).second->x() + itemCenter));
@@ -68,9 +67,9 @@ int ListDropArea::calculateSection(QPoint itemPos) const
     insertIntervals.append(qMakePair(m_items.at(m_items.length() - 1).second->x() + itemCenter, this->width()));
 
     // check interval of item
-    for(const Interval& interval: insertIntervals) {
-        if(interval.first <= itemX && itemX + itemWidth <= interval.second)
-            return insertIntervals.indexOf(interval);
+    for(int i = insertIntervals.length() - 1; i >= 0; i--) {
+        if(insertIntervals.at(i).first <= itemX)
+            return i;
     }
 
     return 0;
@@ -88,18 +87,24 @@ QList<int> ListDropArea::idList() const
     return m_idList;
 }
 
-void ListDropArea::realignItems()
+void ListDropArea::realignItems(int index)
 {
     // TODO set offset
     constexpr int offset = 10;
-    const int itemsCount = m_items.length();
+    const int itemsCount = m_items.length() + (int)(index != -1);
     QPoint pos(this->width() / 2. - (itemsCount * m_itemsSize.width() + offset * (itemsCount - 1)) / 2. + this->x(),
                this->height() / 2. - m_itemsSize.height() / 2. + this->y());
 
-    for(int i = 0; i < itemsCount; i++) {
+    QList<int> newIdList;
+    for(int i = 0; i < m_items.length(); i++) {
+        if(i == index)
+            pos += QPoint(offset + m_itemsSize.width(), 0);
+        newIdList.append(m_items.at(i).first);
         m_items[i].second->move(pos);
         pos += QPoint(offset + m_itemsSize.width(), 0);
     }
+
+    this->setIdList(newIdList);
 }
 
 bool ListDropArea::registerItem(CloneableItem* item)
@@ -129,6 +134,18 @@ bool ListDropArea::handleDroppedItem(CloneableItem* item)
         this->realignItems();
 
     return registerResult;
+}
+
+void ListDropArea::handleDraggingItem(int id, QPoint itemPos)
+{
+    if(m_idList.contains(id))
+        return;
+    if(!this->isInDropArea(QRect(itemPos, m_itemsSize))) {
+        this->realignItems();
+        return;
+    }
+
+    this->realignItems(this->calculateSection(itemPos));
 }
 
 void ListDropArea::setIdList(QList<int> idList)

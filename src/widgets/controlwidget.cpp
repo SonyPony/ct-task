@@ -49,6 +49,13 @@ void ControlWidget::dragMoveEvent(QDragMoveEvent* event)
 {
     if(event->mimeData()->hasFormat(ControlWidget::graphTypeMimeType())) {
         if(event->source() == this) {
+            QByteArray itemData = event->mimeData()->data(ControlWidget::graphTypeMimeType());
+            QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+            QPoint offset;
+            int id;
+            dataStream >> offset >> id;
+
+            m_dropPlaylist->handleDraggingItem(id, event->pos() - offset);
             event->setDropAction(Qt::CopyAction);
             event->accept();
         }
