@@ -27,6 +27,7 @@ class ListDropArea : public QWidget
          * @return Returns true item intersects with droparea otherwise returns false.
          */
         bool isInDropArea(const CloneableItem* item) const;
+        bool isInDropArea(QRect itemGeometry) const;
 
         /**
          * @brief calculateSection Calculates index in list of items where the new item
@@ -36,6 +37,7 @@ class ListDropArea : public QWidget
          * @return Index in list where item should be inserted.
          */
         int calculateSection(CloneableItem* item) const;
+        int calculateSection(QPoint itemPos) const;
 
         /**
          * @brief itemRegistered Check whether item is registered

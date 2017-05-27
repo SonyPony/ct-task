@@ -29,10 +29,20 @@ void ListDropArea::paintEvent(QPaintEvent*)
 
 bool ListDropArea::isInDropArea(const CloneableItem* item) const
 {
-    return this->geometry().intersects(item->geometry());
+    return this->isInDropArea(item->geometry());
+}
+
+bool ListDropArea::isInDropArea(QRect itemGeometry) const
+{
+    return this->geometry().intersects(itemGeometry);
 }
 
 int ListDropArea::calculateSection(CloneableItem* item) const
+{
+    return this->calculateSection(item->pos());
+}
+
+int ListDropArea::calculateSection(QPoint itemPos) const
 {
     typedef QPair<int, int> Interval;
 
