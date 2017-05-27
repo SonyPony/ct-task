@@ -5,10 +5,12 @@ Rectangle {
 
     property int valuesCount: 2
     property real valueLimit: 0
-    readonly property real offset: 10
-    readonly property real barHeight: (component.height - (valuesCount - 1) * offset) / valuesCount
+    property color labelBackgroundColor
     property color textColor
     property font font
+
+    readonly property real offset: 10
+    readonly property real barHeight: (component.height - (valuesCount - 1) * offset) / valuesCount
 
     color: "red"
 
@@ -24,13 +26,33 @@ Rectangle {
         property int model: 0
         readonly property real fontPixelSize: component.barHeight * 0.8
         property real pixelsPerPercent: component.width / 100.
+        property real labelBoxWidth: 0
         readonly property real textOffset: internal.fontPixelSize / 3.
 
         onFontPixelSizeChanged: {
             component.font.pixelSize = fontPixelSize
             checkMinBarWidth()
+            internal.labelBoxWidth = longestLabelWidth()
         }
-        onDataChanged: checkMinBarWidth()
+        onDataChanged: {
+            checkMinBarWidth()
+            internal.labelBoxWidth = longestLabelWidth()
+        }
+
+        function longestLabelWidth() {
+            var valuesCount = component.valuesCount
+            var dataLen = internal.data.length
+            var startIndex = (valuesCount >= dataLen) ?0 :dataLen - valuesCount
+            var longestLabel = 0
+
+            for(var i = startIndex; i < dataLen; i++) {
+                var label = internal.data[i]["label"]
+                if(fm.advanceWidth(label) > longestLabel)
+                    longestLabel = fm.advanceWidth(label)
+            }
+
+            return longestLabel
+        }
 
         function checkMinBarWidth() {
             var offsets = internal.textOffset * 2
@@ -44,8 +66,7 @@ Rectangle {
 
             for(var i = startIndex; i < dataLen; i++) {
                 data = internal.data[i]
-                text = "%1 %2%"
-                .arg(data["label"])
+                text = "   %1%"
                 .arg(Number(data["value"].toFixed(2)))
                 textWidth = offsets + fm.boundingRect(text).width
 
@@ -75,17 +96,41 @@ Rectangle {
 
             model: internal.model
 
-            delegate: Rectangle {
+            delegate: Item {
                 property int index: (repeater.model == component.valuesCount)
                                     ?internal.data.length - component.valuesCount + modelData
                                     :modelData
 
                 rotation: 180
-                color: internal.data[index]["color"]
-                width: internal.data[index]["value"] * internal.pixelsPerPercent
+                width: internal.data[index]["value"] * internal.pixelsPerPercent + internal.labelBoxWidth
                 height: component.barHeight
 
                 anchors.right: parent.right
+
+                Canvas { // background
+                    id: background
+
+                    opacity: 0.8
+                    anchors.fill: parent
+
+                    onPaint: {
+                        var labelWidth = internal.labelBoxWidth + internal.textOffset
+                        var ctx = getContext('2d')
+
+                        ctx.fillStyle = internal.data[index]["color"]
+                        ctx.fillRect(0, 0, background.width, background.height)
+                        ctx.fillStyle = component.labelBackgroundColor
+                        ctx.beginPath()
+                        ctx.moveTo(0, 0)
+                        ctx.lineTo(labelWidth, 0)
+                        ctx.lineTo(labelWidth + fm.advanceWidth("   "), background.height)
+                        ctx.lineTo(0, background.height)
+                        ctx.lineTo(0, 0)
+                        ctx.fill()
+                        ctx.closePath()
+
+                    }
+                }
 
                 Text {
                     id: label
