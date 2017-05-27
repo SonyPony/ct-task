@@ -1,6 +1,6 @@
 import QtQuick 2.7
 
-Rectangle {
+Item {
     id: component
 
     property int valuesCount: 2
@@ -11,8 +11,6 @@ Rectangle {
 
     readonly property real offset: 10
     readonly property real barHeight: (component.height - (valuesCount - 1) * offset) / valuesCount
-
-    color: "red"
 
     FontMetrics {
         id: fm
@@ -66,8 +64,7 @@ Rectangle {
 
             for(var i = startIndex; i < dataLen; i++) {
                 data = internal.data[i]
-                text = "   %1%"
-                .arg(Number(data["value"].toFixed(2)))
+                text = "   %1%".arg(Number(data["value"].toFixed(2)))
                 textWidth = offsets + fm.boundingRect(text).width
 
                 if(textWidth > data["value"] * internal.pixelsPerPercent) {
