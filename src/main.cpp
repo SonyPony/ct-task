@@ -1,8 +1,13 @@
-#include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include "widgets/controlwidget.h"
+#include <widgets/controlwidget.h>
+#include <adapters/controlqmladapter.h>
 #include <QtWidgets/QApplication>
+
+#include <QQmlContext>
+#include <QDebug>
+#include <QFile>
+#include <loaders/electionsdataloader.h>
 
 int main(int argc, char *argv[])
 {
@@ -20,13 +25,19 @@ int main(int argc, char *argv[])
         qDebug() << "Could not open style file.";
 
     ControlWidget w;
+
+    QQmlApplicationEngine engine;
+
+    ControlQMLAdapter controlAdapter;
+    controlAdapter.setTarget(&w);
+    ElectionsDataLoader edl;
+    edl.open("db.db");
+
+    engine.rootContext()->setContextProperty("Data", &edl);
+    engine.rootContext()->setContextProperty("ControlAdapter", &controlAdapter);
+
+    engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     w.show();
-
-    //QQmlApplicationEngine engine;
-
-    //qmlRegisterType<CloneableItem>("CI", 1, 0, "CI");
-
-    //engine.load(QUrl(QLatin1String("qrc:/main.qml")));
 
     return app.exec();
 }
