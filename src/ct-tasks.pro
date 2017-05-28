@@ -6,6 +6,7 @@ SOURCES += main.cpp \
     widgets/controlwidget.cpp \
     controls/cloneableitem.cpp \
     containers/listdroparea.cpp \
+    containers/ddplaylist.cpp \
     loaders/electionsdataloader.cpp \
     controls/graphtypeitem.cpp
 
@@ -23,5 +24,6 @@ HEADERS += \
     widgets/controlwidget.h \
     controls/cloneableitem.h \
     containers/listdroparea.h \
+    containers/ddplaylist.h \
     loaders/electionsdataloader.h \
     controls/graphtypeitem.h
