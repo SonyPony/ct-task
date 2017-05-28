@@ -6,7 +6,8 @@ SOURCES += main.cpp \
     widgets/controlwidget.cpp \
     controls/cloneableitem.cpp \
     containers/listdroparea.cpp \
-    loaders/electionsdataloader.cpp
+    loaders/electionsdataloader.cpp \
+    controls/graphtypeitem.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,4 +23,5 @@ HEADERS += \
     widgets/controlwidget.h \
     controls/cloneableitem.h \
     containers/listdroparea.h \
-    loaders/electionsdataloader.h
+    loaders/electionsdataloader.h \
+    controls/graphtypeitem.h
