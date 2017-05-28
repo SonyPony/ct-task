@@ -16,6 +16,7 @@ class DDPlaylist : public ListDropArea
         explicit DDPlaylist(QWidget *parent = 0);
 
         int activeItemId() const;
+        int itemsCount() const;
 
     private Q_SLOTS:
         void handleIdListChange();

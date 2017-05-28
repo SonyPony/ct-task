@@ -15,6 +15,11 @@ int DDPlaylist::activeItemId() const
     return m_activeItemId;
 }
 
+int DDPlaylist::itemsCount() const
+{
+    return m_idList.length();
+}
+
 void DDPlaylist::handleIdListChange()
 {
     if(m_idList.indexOf(m_activeItemId))
