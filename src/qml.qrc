@@ -4,8 +4,9 @@
         <file>qml/visualization/SingleValueView.qml</file>
         <file>assets/fonts/Roboto-Light.ttf</file>
         <file>qml/visualization/HistorySingleValueView.qml</file>
-        <file>assets/logos/CSSD.svg</file>
         <file>qml/controls/TextWithBackground.qml</file>
         <file>qml/visualization/PercentageNSortedValueView.qml</file>
+        <file>assets/logos/ČSSD.svg</file>
+        <file>assets/logos/SZ.svg</file>
     </qresource>
 </RCC>
