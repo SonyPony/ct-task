@@ -9,5 +9,6 @@
         <file>assets/logos/ČSSD.svg</file>
         <file>assets/logos/SZ.svg</file>
         <file>assets/styles/style.qss</file>
+        <file>assets/images/background.jpg</file>
     </qresource>
 </RCC>
