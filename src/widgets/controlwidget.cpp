@@ -11,6 +11,7 @@
 ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
 {
     this->setAcceptDrops(true);
+    this->setWindowTitle(tr("Kontrolní okno"));
     this->resize(500, 500);
 
     m_itemSize = QSize(100, 100);
@@ -18,7 +19,7 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     m_dropPlaylist = new DDPlaylist(this);
     m_dropPlaylist->setItemsSize(m_itemSize);
     m_dropPlaylist->resize(500, 150);
-    m_dropPlaylist->move(0, 350);
+    m_dropPlaylist->move(0, 300);
 
     m_updateDataButton = new QPushButton(tr("AKTUALIZOVAT"), this);
     m_updateDataButton->move(0, m_dropPlaylist->y() + m_dropPlaylist->height());
@@ -36,7 +37,7 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
         item = new GraphTypeItem(i + 1, m_itemProperties, this);
         item->resize(m_itemSize);
         item->setText(labels.at(i));
-        item->move(i * (m_itemSize.width() + 50), 20);
+        item->move(i * (m_itemSize.width() + 50) + 50, 20);
         item->show();
     }
 
