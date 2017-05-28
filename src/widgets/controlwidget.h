@@ -2,9 +2,9 @@
 #define CONTROLWIDGET_H
 
 #include <QWidget>
-#include <QLabel>
 
-#include <containers/listdroparea.h>
+#include <containers/ddplaylist.h>
+#include <controls/graphtypeitem.h>
 
 class ControlWidget : public QWidget
 {
@@ -13,13 +13,16 @@ class ControlWidget : public QWidget
     private:
         static QString graphTypeMimeType();
 
-        ListDropArea* m_dropPlaylist;
+        DDPlaylist* m_dropPlaylist;
+        GraphTypeItemProperties m_itemProperties;
+        QSize m_itemSize;
 
     protected:
         void dragEnterEvent(QDragEnterEvent *event) override;
         void dragMoveEvent(QDragMoveEvent *event) override;
         void dropEvent(QDropEvent *event) override;
         void mousePressEvent(QMouseEvent *event) override;
+        void keyPressEvent(QKeyEvent* event) override;
 
     public:
         explicit ControlWidget(QWidget *parent = 0);
@@ -27,7 +30,7 @@ class ControlWidget : public QWidget
     public Q_SLOTS:
 
     Q_SIGNALS:
-
+        void showGraph(int type);
 };
 
 #endif // CONTROLWIDGET_H

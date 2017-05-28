@@ -1,26 +1,44 @@
 #include "controlwidget.h"
 
-#include "controls/cloneableitem.h"
-
 #include <QDragEnterEvent>
 #include <QDropEvent>
 #include <QDragMoveEvent>
 #include <QMouseEvent>
 #include <QMimeData>
 #include <QDrag>
+#include <QDebug>
 
 ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
 {
     this->setAcceptDrops(true);
     this->resize(500, 500);
 
-    m_dropPlaylist = new ListDropArea(this);
+    m_itemSize = QSize(100, 100);
+
+    m_dropPlaylist = new DDPlaylist(this);
+    m_dropPlaylist->setItemsSize(m_itemSize);
     m_dropPlaylist->resize(500, 150);
     m_dropPlaylist->move(0, 350);
-    // TODO make better
-    CloneableItem* item = new CloneableItem(1, this);
-    item->resize(100, 100);
-    item->show();
+
+    m_itemProperties.color = QColor("#303030");
+    m_itemProperties.textColor = QColor("#FFFFFF");
+    m_itemProperties.selectedColor = QColor("#0683BA");
+
+    GraphTypeItem* item = nullptr;
+    const QStringList labels = { "ÚČAST VOLIČŮ", "ZISK STRAN", "DETAIL ZISKU STRANY" };
+
+    // create three graph type items
+    for(int i = 0; i < 3; i++) {
+        item = new GraphTypeItem(i + 1, m_itemProperties, this);
+        item->resize(m_itemSize);
+        item->setText(labels.at(i));
+        item->move(i * (m_itemSize.width() + 50), 20);
+        item->show();
+    }
+
+    connect(this, ControlWidget::showGraph, [this](int id) {
+        qDebug() << id;
+    });
 }
 
 QString ControlWidget::graphTypeMimeType()
@@ -76,17 +94,20 @@ void ControlWidget::dropEvent(QDropEvent* event)
     QDataStream dataStream(&itemData, QIODevice::ReadOnly);
     QPoint offset;
     int id;
-
-    dataStream >> offset >> id;
+    QString text;
+    bool selected;
 
     if(mimeData->hasFormat(ControlWidget::graphTypeMimeType())) {
-        CloneableItem* newItem = new CloneableItem(id, this);
+        dataStream >> offset >> id >> selected >> text;
+
+        GraphTypeItem* newItem = new GraphTypeItem(id, m_itemProperties, this);
+        newItem->resize(m_itemSize);
+        newItem->setText(text);
+        if(selected)
+            newItem->select();
 
         newItem->move(event->pos() - offset);
         newItem->setClonable(false);
-        // TODO get size from data
-        newItem->resize(100, 100);
-
         newItem->setAttribute(Qt::WA_DeleteOnClose);
 
         if(m_dropPlaylist->isInDropArea(newItem)) {
@@ -97,8 +118,7 @@ void ControlWidget::dropEvent(QDropEvent* event)
         }
 
         else {
-            m_dropPlaylist->unregisterItem(newItem);
-            newItem->deleteLater();
+            newItem->close();
         }
 
         if(event->source() == this) {
@@ -117,15 +137,17 @@ void ControlWidget::dropEvent(QDropEvent* event)
 
 void ControlWidget::mousePressEvent(QMouseEvent* event)
 {
-    CloneableItem* child = dynamic_cast<CloneableItem*>(this->childAt(event->pos()));
+    GraphTypeItem* child = dynamic_cast<GraphTypeItem*>(this->childAt(event->pos()));
     if(!child)
         return;
 
     const bool reorderAction = m_dropPlaylist->geometry().contains(event->pos());
-    QByteArray itemData;
+
     QPoint hotSpot = event->pos() - child->pos();
+
+    QByteArray itemData;
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
-    dataStream << hotSpot << child->id();
+    dataStream << hotSpot << child->id() << child->selected() << child->text();
 
     QMimeData* mimeData = new QMimeData;
     mimeData->setData(ControlWidget::graphTypeMimeType(), itemData);
@@ -141,4 +163,16 @@ void ControlWidget::mousePressEvent(QMouseEvent* event)
     if(!child->clonable())
         child->close();
     drag->exec(Qt::MoveAction | Qt::CopyAction);
+}
+
+void ControlWidget::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
+        emit this->showGraph(m_dropPlaylist->activeItemId());
+        m_dropPlaylist->setNextActiveItem();
+    }
+    else if(event->key() == Qt::Key_Right)
+        m_dropPlaylist->setNextActiveItem();
+    else if(event->key() == Qt::Key_Left)
+        m_dropPlaylist->setPreviousActiveItem();
 }
