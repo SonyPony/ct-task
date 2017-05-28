@@ -84,6 +84,13 @@ class ListDropArea : public QWidget
          * not been registered before, else return false.
          */
         bool handleDroppedItem(CloneableItem* item);
+
+        /**
+         * @brief handleDraggingItem Realign items as item would be droppet on itemPos
+         * meaning on that spot will be space.
+         * @param id Id of dragging item.
+         * @param itemPos Position of dragging item.
+         */
         void handleDraggingItem(int id, QPoint itemPos);
         void setItemsSize(QSize itemsSize);
 
