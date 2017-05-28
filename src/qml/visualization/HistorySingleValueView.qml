@@ -9,18 +9,25 @@ Item {
     property color valueBackgroundColor
 
     property string valueUnit: ""
-    property real valueReal
+    property real valueReal: 0
     property alias value: valueText
 
     property string historyUnit: ""
-    property real historyReal
+    property real historyReal: 0
     property alias history: historyText
 
     property font font
 
+    property real barWidth: 0
     readonly property real barHeight: component.height / 3.2
     readonly property real barOffset: barHeight * 0.3
     readonly property real labelWidth: label.width + label.x + background.height / 2.5
+
+    width: barWidth + labelWidth
+    clip: false
+
+    onValueChanged: background.requestPaint()
+    onHistoryChanged: background.requestPaint()
 
     Loader {
         id: label
@@ -39,7 +46,9 @@ Item {
 
         z: 1
         height: component.barHeight
-        width: historyContainer.width * (valueReal / historyReal)
+        width: (valueReal < historyReal)
+        ?component.barWidth * (valueReal / historyReal)
+        :component.barWidth
 
         anchors.left: parent.left
         anchors.leftMargin: component.labelWidth
@@ -64,10 +73,12 @@ Item {
 
         z: 1
         height: component.barHeight
+        width: (valueReal < historyReal)
+        ?component.barWidth
+        :component.barWidth * (historyReal / valueReal)
 
         anchors.left: parent.left
         anchors.leftMargin: component.labelWidth
-        anchors.right: parent.right
         anchors.bottom: parent.bottom
 
         Controls.TextWithBackground {
@@ -87,6 +98,7 @@ Item {
 
         opacity: 0.8
         anchors.fill: parent
+        clip: false
 
         onPaint: {
             var labelWidth = component.labelWidth
