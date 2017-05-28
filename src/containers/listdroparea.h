@@ -8,6 +8,7 @@ class ListDropArea : public QWidget
 {
         Q_OBJECT
         Q_PROPERTY(QList<int> idList READ idList WRITE setIdList NOTIFY idListChanged)
+        Q_PROPERTY(QSize itemsSize READ itemsSize WRITE setItemsSize NOTIFY itemsSizeChanged)
 
     private:
         QList<QPair<int, CloneableItem*> > m_items;
@@ -47,6 +48,7 @@ class ListDropArea : public QWidget
         bool itemRegistered(const CloneableItem* item);
 
         QList<int> idList() const;
+        QSize itemsSize() const;
 
     private Q_SLOTS:
         /**
@@ -79,9 +81,11 @@ class ListDropArea : public QWidget
          */
         bool handleDroppedItem(CloneableItem* item);
         void handleDraggingItem(int id, QPoint itemPos);
+        void setItemsSize(QSize itemsSize);
 
     Q_SIGNALS:
         void idListChanged(QList<int> idList);
+        void itemsSizeChanged(QSize itemsSize);
 };
 
 #endif // LISTDROPAREA_H

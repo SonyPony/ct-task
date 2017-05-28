@@ -15,8 +15,6 @@ CloneableItem* ListDropArea::findItemWithId(int id)
 
 ListDropArea::ListDropArea(QWidget *parent) : QWidget(parent)
 {
-    // TODO get and set
-    m_itemsSize = QSize(100, 100);
 }
 
 void ListDropArea::paintEvent(QPaintEvent*)
@@ -63,7 +61,7 @@ int ListDropArea::calculateSection(QPoint itemPos) const
                                ));
     }
 
-    // insert interval from first item to end
+    // insert interval from last item to end
     insertIntervals.append(qMakePair(m_items.at(m_items.length() - 1).second->x() + itemCenter, this->width()));
 
     // check interval of item
@@ -85,6 +83,11 @@ bool ListDropArea::itemRegistered(const CloneableItem* item)
 QList<int> ListDropArea::idList() const
 {
     return m_idList;
+}
+
+QSize ListDropArea::itemsSize() const
+{
+    return m_itemsSize;
 }
 
 void ListDropArea::realignItems(int index)
@@ -114,7 +117,6 @@ bool ListDropArea::registerItem(CloneableItem* item)
     else
         return false;
     return true;
-    // TODO connect with destruct?
 }
 
 void ListDropArea::unregisterItem(CloneableItem* item)
@@ -146,6 +148,15 @@ void ListDropArea::handleDraggingItem(int id, QPoint itemPos)
     }
 
     this->realignItems(this->calculateSection(itemPos));
+}
+
+void ListDropArea::setItemsSize(QSize itemsSize)
+{
+    if (m_itemsSize == itemsSize)
+        return;
+
+    m_itemsSize = itemsSize;
+    emit itemsSizeChanged(itemsSize);
 }
 
 void ListDropArea::setIdList(QList<int> idList)
