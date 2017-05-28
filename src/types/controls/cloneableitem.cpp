@@ -1,5 +1,4 @@
 #include "cloneableitem.h"
-
 #include <QPainter>
 
 CloneableItem::CloneableItem(int id, QWidget* parent): QWidget(parent)

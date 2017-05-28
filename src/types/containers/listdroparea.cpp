@@ -1,5 +1,4 @@
 #include "listdroparea.h"
-
 #include <QPainter>
 #include <QDebug>
 #include <QPair>
