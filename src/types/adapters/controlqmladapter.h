@@ -2,7 +2,7 @@
 #define CONTROLQMLADAPTER_H
 
 #include <QObject>
-#include <widgets/controlwidget.h>
+#include <types/widgets/controlwidget.h>
 
 class ControlQMLAdapter : public QObject
 {

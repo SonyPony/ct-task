@@ -3,9 +3,8 @@
 
 #include <QWidget>
 #include <QPushButton>
-
-#include <containers/ddplaylist.h>
-#include <controls/graphtypeitem.h>
+#include <types/containers/ddplaylist.h>
+#include <types/controls/graphtypeitem.h>
 
 class ControlWidget : public QWidget
 {

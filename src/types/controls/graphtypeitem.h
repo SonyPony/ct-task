@@ -3,7 +3,7 @@
 
 #include <QLabel>
 #include <QWidget>
-#include <controls/cloneableitem.h>
+#include <types/controls/cloneableitem.h>
 
 struct GraphTypeItemProperties
 {

@@ -2,7 +2,7 @@
 #define LISTDROPAREA_H
 
 #include <QWidget>
-#include <controls/cloneableitem.h>
+#include <types/controls/cloneableitem.h>
 
 class ListDropArea : public QWidget
 {

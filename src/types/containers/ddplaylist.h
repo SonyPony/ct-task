@@ -2,7 +2,7 @@
 #define DDPLAYLIST_H
 
 #include <QWidget>
-#include <containers/listdroparea.h>
+#include <types/containers/listdroparea.h>
 
 class DDPlaylist : public ListDropArea
 {
