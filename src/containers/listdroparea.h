@@ -13,9 +13,13 @@ class ListDropArea : public QWidget
     private:
         QList<QPair<int, CloneableItem*> > m_items;
         QSize m_itemsSize;
-        QList<int> m_idList;
 
         CloneableItem* findItemWithId(int id);
+
+    protected:
+        QList<int> m_idList;
+        QList<QPair<int, CloneableItem*> > items();
+
 
     public:
         explicit ListDropArea(QWidget *parent = 0);

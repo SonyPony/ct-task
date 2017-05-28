@@ -13,6 +13,11 @@ CloneableItem* ListDropArea::findItemWithId(int id)
     return nullptr;
 }
 
+QList<QPair<int, CloneableItem*> > ListDropArea::items()
+{
+    return m_items;
+}
+
 ListDropArea::ListDropArea(QWidget *parent) : QWidget(parent)
 {
 }
