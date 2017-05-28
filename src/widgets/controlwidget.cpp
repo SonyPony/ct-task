@@ -187,4 +187,10 @@ void ControlWidget::keyPressEvent(QKeyEvent* event)
         m_dropPlaylist->setNextActiveItem();
     else if(event->key() == Qt::Key_Left)
         m_dropPlaylist->setPreviousActiveItem();
+    else if(event->key() == Qt::Key_Escape) {
+        m_dropPlaylist->display(-1);
+        m_dropPlaylist->setUnactive();
+        emit this->showGraph(m_dropPlaylist->activeItemId());
+
+    }
 }
