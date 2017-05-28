@@ -18,7 +18,7 @@ Item {
         z: 1
 
         font.family: component.font.family
-        font.pixelSize: component.height * 0.65
+        font.pixelSize: component.height * 0.7
 
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
