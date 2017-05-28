@@ -1,6 +1,5 @@
 #include "ddplaylist.h"
-#include <controls/graphtypeitem.h>
-#include <QDebug>
+#include <types/controls/graphtypeitem.h>
 
 DDPlaylist::DDPlaylist(QWidget *parent) : ListDropArea(parent)
 {

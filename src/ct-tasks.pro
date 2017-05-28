@@ -3,13 +3,13 @@ QT += qml quick widgets sql
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    widgets/controlwidget.cpp \
-    controls/cloneableitem.cpp \
-    containers/listdroparea.cpp \
-    containers/ddplaylist.cpp \
-    loaders/electionsdataloader.cpp \
-    controls/graphtypeitem.cpp \
-    adapters/controlqmladapter.cpp
+    types/widgets/controlwidget.cpp \
+    types/controls/cloneableitem.cpp \
+    types/containers/listdroparea.cpp \
+    types/containers/ddplaylist.cpp \
+    types/loaders/electionsdataloader.cpp \
+    types/controls/graphtypeitem.cpp \
+    types/adapters/controlqmladapter.cpp
 
 RESOURCES += qml.qrc
 
@@ -22,10 +22,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    widgets/controlwidget.h \
-    controls/cloneableitem.h \
-    containers/listdroparea.h \
-    containers/ddplaylist.h \
-    loaders/electionsdataloader.h \
-    controls/graphtypeitem.h \
-    adapters/controlqmladapter.h
+    types/widgets/controlwidget.h \
+    types/controls/cloneableitem.h \
+    types/containers/listdroparea.h \
+    types/containers/ddplaylist.h \
+    types/loaders/electionsdataloader.h \
+    types/controls/graphtypeitem.h \
+    types/adapters/controlqmladapter.h

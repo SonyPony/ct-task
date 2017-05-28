@@ -1,13 +1,11 @@
 #include <QQmlApplicationEngine>
-
-#include <widgets/controlwidget.h>
-#include <adapters/controlqmladapter.h>
-#include <QtWidgets/QApplication>
-
+#include <QApplication>
 #include <QQmlContext>
 #include <QDebug>
 #include <QFile>
-#include <loaders/electionsdataloader.h>
+#include <types/widgets/controlwidget.h>
+#include <types/adapters/controlqmladapter.h>
+#include <types/loaders/electionsdataloader.h>
 
 int main(int argc, char *argv[])
 {
