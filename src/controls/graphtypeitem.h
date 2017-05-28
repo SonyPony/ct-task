@@ -21,6 +21,7 @@ class GraphTypeItem : public CloneableItem
         Q_PROPERTY(QColor selectedColor READ selectedColor WRITE setSelectedColor NOTIFY selectedColorChanged)
 
     private:
+        bool m_displayed;
         bool m_selected;
         QPoint m_pressPos;
         QString m_text;
@@ -35,6 +36,7 @@ class GraphTypeItem : public CloneableItem
         explicit GraphTypeItem(int id, QWidget *parent = 0);
         GraphTypeItem(int id, const GraphTypeItemProperties& properties, QWidget* parent = 0);
 
+        bool displayed() const;
         bool selected() const;
         QString text() const;
         QColor textColor() const;
@@ -43,6 +45,7 @@ class GraphTypeItem : public CloneableItem
         GraphTypeItemProperties properties() const;
 
     public Q_SLOTS:
+        void setDisplayed(bool displayed);
         void select();
         void disselect();
         void setText(QString text);

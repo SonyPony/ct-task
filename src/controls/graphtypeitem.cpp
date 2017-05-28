@@ -17,13 +17,17 @@ void GraphTypeItem::paintEvent(QPaintEvent*)
     painter.drawRect(this->rect());
 
     painter.setPen(m_textColor);
-    painter.drawText(this->rect(), m_text, textOption);
+    if(m_displayed)
+        painter.drawText(this->rect(), m_text + " - " + tr("ZOBRAZENO"), textOption);
+    else
+        painter.drawText(this->rect(), m_text, textOption);
 
 }
 
 GraphTypeItem::GraphTypeItem(int id, QWidget *parent) : CloneableItem(id, parent)
 {
     m_selected = false;
+    m_displayed = false;
 
     connect(this, GraphTypeItem::selectedChanged, [this]() { this->update(); });
     connect(this, GraphTypeItem::textChanged, [this]() { this->update(); });
@@ -35,6 +39,11 @@ GraphTypeItem::GraphTypeItem(int id, const GraphTypeItemProperties& properties, 
     m_selectedColor = properties.selectedColor;
     m_color = properties.color;
     m_textColor = properties.textColor;
+}
+
+bool GraphTypeItem::displayed() const
+{
+    return m_displayed;
 }
 
 bool GraphTypeItem::selected() const
@@ -60,6 +69,11 @@ QColor GraphTypeItem::color() const
 QColor GraphTypeItem::selectedColor() const
 {
     return m_selectedColor;
+}
+
+void GraphTypeItem::setDisplayed(bool displayed)
+{
+    m_displayed = displayed;
 }
 
 void GraphTypeItem::select()
