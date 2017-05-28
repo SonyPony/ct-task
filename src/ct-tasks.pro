@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     containers/listdroparea.cpp \
     containers/ddplaylist.cpp \
     loaders/electionsdataloader.cpp \
-    controls/graphtypeitem.cpp
+    controls/graphtypeitem.cpp \
+    adapters/controlqmladapter.cpp
 
 RESOURCES += qml.qrc
 
@@ -26,4 +27,5 @@ HEADERS += \
     containers/listdroparea.h \
     containers/ddplaylist.h \
     loaders/electionsdataloader.h \
-    controls/graphtypeitem.h
+    controls/graphtypeitem.h \
+    adapters/controlqmladapter.h
