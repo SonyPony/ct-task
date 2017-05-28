@@ -76,3 +76,24 @@ void DDPlaylist::setPreviousActiveItem()
         this->setActiveItemId(nextId);
     }
 }
+
+void DDPlaylist::setUnactive()
+{
+    this->setActiveItemId(-1);
+}
+
+void DDPlaylist::select(int id)
+{
+    this->setActiveItemId(id);
+}
+
+void DDPlaylist::display(int id)
+{
+    GraphTypeItem* item;
+    for(auto itemData: this->items()) {
+        if((item = qobject_cast<GraphTypeItem*>(itemData.second)) == nullptr)
+            continue;
+
+        item->setDisplayed(itemData.first == id);
+    }
+}

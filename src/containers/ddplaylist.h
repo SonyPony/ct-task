@@ -26,6 +26,9 @@ class DDPlaylist : public ListDropArea
         void setActiveItemId(int activeItemId);
         void setNextActiveItem();
         void setPreviousActiveItem();
+        void setUnactive();
+        void select(int id);
+        void display(int id);
 
     Q_SIGNALS:
         void activeItemIdChanged(int activeItemId);
