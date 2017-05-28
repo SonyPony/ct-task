@@ -6,7 +6,7 @@ Item {
 
     property alias label: labelText
     property alias value: valueText
-    property real valueReal
+    property real valueReal: 0
     property string unit: ""
     property font font
 
