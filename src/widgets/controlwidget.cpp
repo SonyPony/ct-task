@@ -41,9 +41,6 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
         item->show();
     }
 
-    connect(this, ControlWidget::showGraph, [this](int id) {
-        qDebug() << id;
-    });
     connect(m_updateDataButton, QPushButton::clicked, this, ControlWidget::updateDataRequest);
 }
 
@@ -110,7 +107,7 @@ void ControlWidget::dropEvent(QDropEvent* event)
         newItem->resize(m_itemSize);
         newItem->setText(text);
         if(selected)
-            newItem->select();
+            m_dropPlaylist->select(newItem->id());
 
         newItem->move(event->pos() - offset);
         newItem->setClonable(false);
