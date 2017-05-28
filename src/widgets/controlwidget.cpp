@@ -171,8 +171,17 @@ void ControlWidget::mousePressEvent(QMouseEvent* event)
 void ControlWidget::keyPressEvent(QKeyEvent* event)
 {
     if(event->key() == Qt::Key_Return || event->key() == Qt::Key_Enter) {
-        emit this->showGraph(m_dropPlaylist->activeItemId());
+        bool emptyPlaylist = !m_dropPlaylist->itemsCount();
+        if(emptyPlaylist)
+            emit this->showGraph(m_dropPlaylist->activeItemId());
         m_dropPlaylist->setNextActiveItem();
+        if(!emptyPlaylist) {
+            m_dropPlaylist->display(m_dropPlaylist->activeItemId());
+            emit this->showGraph(m_dropPlaylist->activeItemId());
+        }
+
+        else
+            m_dropPlaylist->display(-1);
     }
     else if(event->key() == Qt::Key_Right)
         m_dropPlaylist->setNextActiveItem();
