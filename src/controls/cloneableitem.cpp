@@ -8,13 +8,6 @@ CloneableItem::CloneableItem(int id, QWidget* parent): QWidget(parent)
     m_clonable = true;
 }
 
-void CloneableItem::paintEvent(QPaintEvent*)
-{
-    QPainter painter(this);
-    painter.setBrush(QColor("red"));
-    painter.drawRect(QRect(QPoint(), this->size()));
-}
-
 QPixmap CloneableItem::pixmap()
 {
     m_imageRepresentation = QImage(this->size(), QImage::Format_ARGB32);
