@@ -2,6 +2,7 @@
 #define CONTROLWIDGET_H
 
 #include <QWidget>
+#include <QPushButton>
 
 #include <containers/ddplaylist.h>
 #include <controls/graphtypeitem.h>
@@ -16,6 +17,7 @@ class ControlWidget : public QWidget
         DDPlaylist* m_dropPlaylist;
         GraphTypeItemProperties m_itemProperties;
         QSize m_itemSize;
+        QPushButton* m_updateDataButton;
 
     protected:
         void dragEnterEvent(QDragEnterEvent *event) override;
@@ -31,6 +33,7 @@ class ControlWidget : public QWidget
 
     Q_SIGNALS:
         void showGraph(int type);
+        void updateDataRequest();
 };
 
 #endif // CONTROLWIDGET_H

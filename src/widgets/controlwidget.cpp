@@ -20,6 +20,10 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     m_dropPlaylist->resize(500, 150);
     m_dropPlaylist->move(0, 350);
 
+    m_updateDataButton = new QPushButton(tr("AKTUALIZOVAT"), this);
+    m_updateDataButton->move(0, m_dropPlaylist->y() + m_dropPlaylist->height());
+    m_updateDataButton->resize(m_dropPlaylist->width(), 50);
+
     m_itemProperties.color = QColor("#303030");
     m_itemProperties.textColor = QColor("#FFFFFF");
     m_itemProperties.selectedColor = QColor("#0683BA");
@@ -39,6 +43,7 @@ ControlWidget::ControlWidget(QWidget *parent) : QWidget(parent)
     connect(this, ControlWidget::showGraph, [this](int id) {
         qDebug() << id;
     });
+    connect(m_updateDataButton, QPushButton::clicked, this, ControlWidget::updateDataRequest);
 }
 
 QString ControlWidget::graphTypeMimeType()
