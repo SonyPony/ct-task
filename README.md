@@ -1,6 +1,11 @@
-# ct-task
+# Zobrazovač grafů
 
-Zadání:
+Shrnutí
+-------
+Po spuštení aplikace se zobrazí dvě okna, jedno na ovládání zobrazení grafů a druhé je dané zobrazení. Klávesou Enter přepínáme na další graf. Klávesou Escape lze skrýt všechny grafy. Editor databáze nebyl vytvořen z důvodu, že byl použit již existující editor DB Browser for SQLite, který je již otestovaný a uživatelský přívětivější, než kdybychom použili QTableView společně s QSqlTableModel. U zobrazení strany s minulým ziskem je možné použí pouze strany ČSSD a SZ, protože bych jinak musel předělat loga všech politických stran do bílé barvy.
+
+Zadání
+------
 Mějme tuto modelovou situaci: Ve volbách do Poslanecké sněmovny bychom rádi, během sčítání hlasů, prezentovali tři druhy informací:
 •	Jaká je účast voličů
 •	Které strany, a s jakými zisky, se dostanou nad 5% hranici
