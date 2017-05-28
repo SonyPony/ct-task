@@ -8,5 +8,6 @@
         <file>qml/visualization/PercentageNSortedValueView.qml</file>
         <file>assets/logos/ČSSD.svg</file>
         <file>assets/logos/SZ.svg</file>
+        <file>assets/styles/style.qss</file>
     </qresource>
 </RCC>

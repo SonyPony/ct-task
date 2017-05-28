@@ -9,6 +9,16 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication app(argc, argv);
 
+    // load styles
+    QFile styleFile(":/assets/styles/style.qss");
+    if(styleFile.open(QIODevice::ReadOnly)) {
+        const QString styleSheet = QString(styleFile.readAll());
+        app.setStyleSheet(styleSheet);
+    }
+
+    else
+        qDebug() << "Could not open style file.";
+
     ControlWidget w;
     w.show();
 
