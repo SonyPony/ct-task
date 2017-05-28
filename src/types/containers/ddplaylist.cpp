@@ -5,7 +5,6 @@ DDPlaylist::DDPlaylist(QWidget *parent) : ListDropArea(parent)
 {
     m_activeItemId = -1;
 
-    connect(this, DDPlaylist::idListChanged, this, DDPlaylist::handleIdListChange);
     connect(this, DDPlaylist::activeItemIdChanged, this, DDPlaylist::setItemsSelection);
 }
 
@@ -17,12 +16,6 @@ int DDPlaylist::activeItemId() const
 int DDPlaylist::itemsCount() const
 {
     return m_idList.length();
-}
-
-void DDPlaylist::handleIdListChange()
-{
-    if(m_idList.indexOf(m_activeItemId))
-        this->setActiveItemId(-1);
 }
 
 void DDPlaylist::setItemsSelection()

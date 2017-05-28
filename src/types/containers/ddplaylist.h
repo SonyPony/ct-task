@@ -19,7 +19,6 @@ class DDPlaylist : public ListDropArea
         int itemsCount() const;
 
     private Q_SLOTS:
-        void handleIdListChange();
         void setItemsSelection();
 
     public Q_SLOTS:
